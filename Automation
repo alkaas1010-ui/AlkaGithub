@@ -1,0 +1,21 @@
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class ApiAutomation {
+    public static void main(String[] args) {
+        String url = "https://jsonplaceholder.typicode.com/posts/1";
+        Response response = RestAssured.get(url);
+
+        // Assert status code
+        if (response.getStatusCode() != 200) {
+            throw new AssertionError("Expected status code 200, got " + response.getStatusCode());
+        }
+
+        // Assert response contains userId
+        if (!response.getBody().asString().contains("userId")) {
+            throw new AssertionError("Response does not contain 'userId'");
+        }
+
+        System.out.println("API test passed!");
+    }
+}
